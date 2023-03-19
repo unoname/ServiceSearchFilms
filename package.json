@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js",
+		"start": "node index.js"
   },
   "keywords": [
     "node.js",
     "postgresql"
   ],
+	"type": "module",
   "author": "Aleksandr Panov",
   "license": "ISC",
   "dependencies": {
