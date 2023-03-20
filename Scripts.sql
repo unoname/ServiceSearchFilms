@@ -7,13 +7,13 @@ CREATE TABLE film (
 );
 
 
-CREATE TABLE genere (
+CREATE TABLE genre (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
 
-CREATE TABLE film_genere (
+CREATE TABLE film_genre (
     film_id INTEGER REFERENCES film(id),
     genre_id INTEGER REFERENCES genre(id),
     PRIMARY KEY(film_id, genre_id)

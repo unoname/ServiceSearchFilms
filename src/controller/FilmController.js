@@ -17,13 +17,15 @@ class FilmController {
 						VALUES ($3)
 						RETURNING id
 					)
-					INSERT INTO film_genere (film_id, genre_id)
+					INSERT INTO film_genre (film_id, genre_id)
 					SELECT new_film.id, new_genre.id
 					FROM new_film, new_genre RETURNING new_film.*, new_genre.id;`,
           [title, release_date, genre]
         );
         callback(201, rows);
       } catch (err) {
+        console.log(err.code)
+        console.log(err.message)
         callback(500, { error: 'Failed to create film' });
       }
     });
@@ -33,9 +35,9 @@ class FilmController {
     try {
       const { rows } = await pool.query(
         `SELECT film.*, array_agg(genre.name) AS genres
-					FROM film, genre, film_genere
-					WHERE film.id = film_genere.film_id
-					AND genre.id = film_genere.genre_id
+					FROM film, genre, film_genre
+					WHERE film.id = film_genre.film_id
+					AND genre.id = film_genre.genre_id
 					GROUP BY film.id`
       );
       if (rows.length === 0) {
